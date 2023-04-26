@@ -10,7 +10,7 @@ The project is made in support of our community at [No Man's Sky Retro](https://
 
 - The removal of DRM measures in the application is done solely for the purpose of allowing the older version of the game to function and is not intended to encourage or support piracy. The creators of the application do not condone or support piracy, and users are reminded that it is illegal to distribute or use pirated software.
 
-- The use of this application is at the user's own risk, and the creators of the application cannot be held responsible for any damages that may result from its use. This includes, but is not limited to, any damage to the user's computer, loss of data, or legal repercussions resulting from the use of pirated software.
+- The use of this application is at the user's own risk, and the creators of the application cannot be held responsible for any damages that may result from its use. This includes, but is not limited to, any damage to the user's computer, loss of data, or legal repercussions.
 
 ## Usage
 
