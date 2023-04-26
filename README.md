@@ -24,6 +24,9 @@ To use the No Man's Sky Legacy Version Installer, follow these steps:
 4. Wait for the download and installation process to complete.
 5. Launch the game using the provided executable file.
 
+## Third-party Tools Used
+The installer uses the third-party tool [DepotDownloader](https://github.com/SteamRE/DepotDownloader) to download the game, followed by the [Goldburg Emulator Project](https://gitlab.com/Mr_Goldberg/goldberg_emulator)'s steam_api64.dll and [Steamless](https://github.com/atom0s/Steamless/releases) to allow the game to run properly.
+
 ## Contributing
 
 If you encounter any issues while using the No Man's Sky Legacy Version Installer or have suggestions for improvement, please [open an issue](https://github.com/qjimbo/NMSLegacyVersionInstaller/issues) on the GitHub repository. Pull requests are also welcome.
