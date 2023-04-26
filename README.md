@@ -24,7 +24,7 @@ To use the No Man's Sky Legacy Version Installer, follow these steps:
 5. Launch the game using the provided executable file.
 
 ## Third-party Tools Used
-The installer uses the third-party tool [DepotDownloader](https://github.com/SteamRE/DepotDownloader) to download the game from Steam, followed by the [Goldburg Emulator Project](https://gitlab.com/Mr_Goldberg/goldberg_emulator)'s steam_api64.dll and [Steamless](https://github.com/atom0s/Steamless/releases) to allow the game to run properly.
+The installer uses the third-party tool [DepotDownloader](https://github.com/SteamRE/DepotDownloader) to download the game from Steam, followed by the [Goldburg Emulator Project](https://gitlab.com/Mr_Goldberg/goldberg_emulator)'s steam_api64.dll and [Steamless](https://github.com/atom0s/Steamless) to allow the game to run properly.
 
 Additionally the tool uses the [ConsoleControl](https://github.com/dwmkerr/consolecontrol) and [Costura.Fody](https://github.com/Fody/Costura) libraries.
 
