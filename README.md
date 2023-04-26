@@ -8,11 +8,7 @@ The No Man's Sky Legacy Version Installer is a fan-made application designed to 
 
 - The removal of DRM measures in the application is done solely for the purpose of allowing the older version of the game to function and is not intended to encourage or support piracy. The creators of the application do not condone or support piracy, and users are reminded that it is illegal to distribute or use pirated software.
 
-- The application removes SteamStub DRM, which allows older versions of the game to function without launching the Steam Client or executing the current version.
-
 - The use of this application is at the user's own risk, and the creators of the application cannot be held responsible for any damages that may result from its use. This includes, but is not limited to, any damage to the user's computer, loss of data, or legal repercussions resulting from the use of pirated software.
-
-- Users are advised to exercise caution when using this application and to ensure that they are complying with all applicable laws and regulations. The creators of the application are not responsible for any misuse or illegal activity associated with the use of this application.
 
 ## Usage
 
