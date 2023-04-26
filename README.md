@@ -2,6 +2,8 @@
 
 The No Man's Sky Legacy Version Installer is a fan-made application designed to facilitate the installation of older versions of the game No Man's Sky. This application is intended for use by individuals who wish to experience older versions of the game and is not affiliated with the game's developers or publishers.
 
+The project is made in support of our community at [No Man's Sky Retro](https://nomansskyretro.com).
+
 ## Disclaimer
 
 - This application does not contain any game data, and only serves as a tool to download the game from Steam. The user must have a valid, purchased copy of the game and provide their own Steam account details to use this application.
