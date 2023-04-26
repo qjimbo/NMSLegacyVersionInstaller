@@ -26,7 +26,11 @@ To use the No Man's Sky Legacy Version Installer, follow these steps:
 ## Third-party Tools Used
 The installer uses the third-party tool [DepotDownloader](https://github.com/SteamRE/DepotDownloader) to download the game from Steam, followed by the [Goldburg Emulator Project](https://gitlab.com/Mr_Goldberg/goldberg_emulator)'s steam_api64.dll and [Steamless](https://github.com/atom0s/Steamless/releases) to allow the game to run properly.
 
+Additionally the tool uses the [ConsoleControl](https://github.com/dwmkerr/consolecontrol) and [Costura.Fody](https://github.com/Fody/Costura) libraries.
+
 ## Contributing
+
+The project is written in C# .NET 4.6.
 
 If you encounter any issues while using the No Man's Sky Legacy Version Installer or have suggestions for improvement, please [open an issue](https://github.com/qjimbo/NMSLegacyVersionInstaller/issues) on the GitHub repository. Pull requests are also welcome.
 
