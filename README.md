@@ -18,8 +18,8 @@ The project is made in support of our community at [No Man's Sky Retro](https://
 To use the No Man's Sky Legacy Version Installer, follow these steps:
 
 1. Download the application from the [Releases](https://github.com/qjimbo/NMSLegacyVersionInstaller/releases)  page.
-2. Choose the versions of the game you wish to install.
-3. Launch the application and provide your Steam account details.
+2. Launch the Application and choose which versions of the game you wish to install.
+3. Provide your Steam account details.
 4. Wait for the download and installation process to complete.
 5. Launch No Man's Sky using the provided shortcuts.
 
