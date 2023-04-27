@@ -1,7 +1,7 @@
 # No Man's Sky Legacy Version Installer
 ![nms_legacy_installer_screenshot](https://user-images.githubusercontent.com/21266513/234724944-f7d49817-db78-405c-a3d5-8692f911a2d8.png)
 
-No Man's Sky Legacy Version Installer is a fan-made application designed to facilitate the installation of older versions of the game No Man's Sky. This application is intended for use by individuals who wish to experience older versions of the game and is not affiliated with the game's developers or publishers.
+No Man's Sky Legacy Version Installer is a fan-made application designed to facilitate the installation of older versions of the game No Man's Sky. This application is intended for use by individuals who wish to experience older versions of the game who have purchased the game on Steam and is not affiliated with the game's developers or publishers.
 
 The project is made in support of our community at [No Man's Sky Retro](https://nomansskyretro.com).
 
@@ -18,15 +18,15 @@ The project is made in support of our community at [No Man's Sky Retro](https://
 To use the No Man's Sky Legacy Version Installer, follow these steps:
 
 1. Download the application from the [Releases](https://github.com/qjimbo/NMSLegacyVersionInstaller/releases)  page.
-2. Launch the application and provide your Steam account details.
-3. Choose the versions of the game you wish to install.
+2. Choose the versions of the game you wish to install.
+3. Launch the application and provide your Steam account details.
 4. Wait for the download and installation process to complete.
-5. Launch the game using the provided executable file.
+5. Launch No Man's Sky using the provided shortcuts.
 
 ## Third-party Tools Used
 The installer uses the third-party tool [DepotDownloader](https://github.com/SteamRE/DepotDownloader) to download the game from Steam, followed by the [Goldburg Emulator Project](https://gitlab.com/Mr_Goldberg/goldberg_emulator)'s steam_api64.dll and [Steamless](https://github.com/atom0s/Steamless) to allow the game to run properly.
 
-Additionally the [ConsoleControl](https://github.com/dwmkerr/consolecontrol) and [Costura.Fody](https://github.com/Fody/Costura) libraries are used to handle command line input and output and consolidate the application into a single EXE.
+Additionally the [ConsoleControl](https://github.com/dwmkerr/consolecontrol) and [Costura.Fody](https://github.com/Fody/Costura) libraries are used to handle command line input and output and consolidate the application into a single executable file.
 
 ## Contributing
 
