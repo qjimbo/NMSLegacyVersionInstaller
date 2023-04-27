@@ -28,6 +28,11 @@ The installer uses the third-party tool [DepotDownloader](https://github.com/Ste
 
 Additionally the [ConsoleControl](https://github.com/dwmkerr/consolecontrol) and [Costura.Fody](https://github.com/Fody/Costura) libraries are used to handle command line input and output and consolidate the application into a single executable file.
 
+## Extras
+The installer also includes [SmartSaveFolder](https://github.com/qjimbo/smartsavefolder) to allow each version to have it's own seperate Savegames. To use, simply use the SmartSaveFolder shortcut before launching No Man's Sky (a restart may be required the first time using SmartSaveFolder).
+
+Additionally, there are be compatibility issues with older versions of No Man's Sky and current graphics card drivers, which can be solved by using [RetroShaderFix](https://github.com/EthanRDoesMC/RetroShaderFix). This fix will be integrated into future versions of the installer.
+
 ## Contributing
 
 The project is written in C# .NET 4.6.
