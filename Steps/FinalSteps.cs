@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.IO;
 using System.Threading;
+using ConsoleControl;
+using ConsoleControlAPI;
 
 namespace NMSLegacyVersionInstaller.Steps
 {
@@ -19,7 +21,9 @@ namespace NMSLegacyVersionInstaller.Steps
             InitializeComponent();
         }
         private ConsoleControl.ConsoleControl console;
-        public int FinalStepIndex = 0;
+        public int currentCommandIndex = 0;
+        public DepotDownloader depotDownloader;
+        public string extras;
 
         private void FinalSteps_Load(object sender, EventArgs e)
         {
@@ -34,46 +38,56 @@ namespace NMSLegacyVersionInstaller.Steps
 
             console.Focus();
             Program.Container.SetStepsEnabled(false);
-            var depotdownloader = NMSLegacyVersionInstaller.Container.FindStep<DepotDownloader>();
+            depotDownloader = NMSLegacyVersionInstaller.Container.FindStep<DepotDownloader>();
 
             // Extras
-            string extras = Path.Combine(depotdownloader.InstallationPath, "Extras");
+            extras = Path.Combine(depotDownloader.InstallationPath, "Extras");
             console.WriteOutput("Extracting Extras..." + Environment.NewLine, Color.Lime);
             Program.ExtractInstallerFiles("NMSLegacyVersionInstaller.InstallerExtras.", extras);
-            Program.CreateShortcutWithIcon(Path.Combine(depotdownloader.InstallationPath, "SmartSaveFolder.lnk"), Path.Combine(extras, "SmartSaveFolder.exe"));
+            Program.CreateShortcutWithIcon(Path.Combine(depotDownloader.InstallationPath, "SmartSaveFolder.lnk"), Path.Combine(extras, "SmartSaveFolder.exe"));
 
-            // Start Tasks
+            // Start Task
+            currentCommandIndex = 0;
+            console.ProcessInterface.OnProcessExit += AfterUnpack;
+            BeforeUnpack();
+        }
 
-            foreach (var thisCommand in depotdownloader.DepotDownloaderCommands)
-            {
-                
-                var folder = thisCommand.folder;
-                 console.WriteOutput("Processing " + Path.GetFileName(thisCommand.folder) + Environment.NewLine, Color.Lime);
+        private void BeforeUnpack()
+        {
+            BeginInvoke((MethodInvoker)(() =>
+            { // Threadsafe
+                var thisCommand = depotDownloader.DepotDownloaderCommands[currentCommandIndex];
+                var binaries = Path.Combine(thisCommand.folder, "Binaries");
+                var NMSexePath = Path.Combine(binaries, "NMS.exe");
 
-                //steam_api64.dll
-                var binaries = Path.Combine(folder, "Binaries");
+                console.WriteOutput("Processing " + Path.GetFileName(thisCommand.folder) + Environment.NewLine, Color.Lime);
+
                 console.WriteOutput("Replace steam_api64.dll.." + Environment.NewLine, Color.Orange);
                 File.Copy(Path.Combine(Program.TempFileLocation, "steam_api64.dll"), Path.Combine(binaries, "steam_api64.dll"), true);
 
-                //steamstub
                 console.WriteOutput("Running Steamless..." + Environment.NewLine, Color.Orange);
+
+                new Thread(() =>
+                {
+                    Thread.Sleep(3000);
+                    BeginInvoke((MethodInvoker)(() =>
+                    {
+                        console.StartProcess(Path.Combine(Program.TempFileLocation, "Steamless.CLI.exe"), "\"" + NMSexePath + "\"");
+                    }));
+                }).Start();
+            }));
+        }
+
+        private void AfterUnpack(object sender, ProcessEventArgs args)
+        {
+            BeginInvoke((MethodInvoker)(() =>
+            { // Threadsafe
+                var thisCommand = depotDownloader.DepotDownloaderCommands[currentCommandIndex];
+
+                // After Steamless
+                var binaries = Path.Combine(thisCommand.folder, "Binaries");
                 var NMSexePath = Path.Combine(binaries, "NMS.exe");
                 var unpackedNMSexePath = Path.Combine(binaries, "NMS.exe.unpacked.exe");
-                
-                
-                console.StartProcess(Path.Combine(Program.TempFileLocation, "Steamless.CLI.exe"), "\"" + NMSexePath + "\"");
-
-                do
-                {
-                    Thread.Sleep(500);
-                    Application.DoEvents();
-                } while (console.IsProcessRunning);
-
-                try
-                {
-                    console.StopProcess();
-                }
-                catch { }
 
                 if (File.Exists(unpackedNMSexePath))
                 {
@@ -82,20 +96,25 @@ namespace NMSLegacyVersionInstaller.Steps
                     File.Move(unpackedNMSexePath, NMSexePath);
                 }
 
-                //shortcut
                 var iconPath = Path.Combine(extras, thisCommand.icon);
-                Program.CreateShortcutWithIcon(Path.Combine(depotdownloader.InstallationPath, thisCommand.name + ".lnk"), NMSexePath, iconPath);
+                Program.CreateShortcutWithIcon(Path.Combine(depotDownloader.InstallationPath, thisCommand.name + ".lnk"), NMSexePath, iconPath);
 
-            }
 
-            console.WriteOutput("Complete" + Environment.NewLine, Color.Lime);
-            File.WriteAllText(Path.Combine(depotdownloader.InstallationLogPath, "02_FinalStepsLog-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".txt"), console.InternalRichTextBox.Text);
+                if (currentCommandIndex < depotDownloader.DepotDownloaderCommands.Count - 1)
+                {
+                    currentCommandIndex++;
+                    BeforeUnpack(); // Next Unpack
+                }
+                else
+                {
+                    console.WriteOutput("Complete" + Environment.NewLine, Color.Lime);
+                    File.WriteAllText(Path.Combine(depotDownloader.InstallationLogPath, "02_FinalStepsLog-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".txt"), console.InternalRichTextBox.Text);
 
-            Program.Container.SetStepsEnabled(true);
-            Program.Container.Next();
+                    Program.Container.SetStepsEnabled(true);
+                    Program.Container.Next();
+                }
+            }));
         }
-
-
 
 
     }
