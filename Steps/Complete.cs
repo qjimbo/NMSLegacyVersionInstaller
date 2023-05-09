@@ -18,10 +18,11 @@ namespace NMSLegacyVersionInstaller.Steps
         {
             InitializeComponent();
         }
-
+        string extras;
         private void Complete_Load(object sender, EventArgs e)
         {
-
+            var depotDownloader = NMSLegacyVersionInstaller.Container.FindStep<DepotDownloader>();
+            extras = Path.Combine(depotDownloader.InstallationPath, "Extras");
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -37,6 +38,22 @@ namespace NMSLegacyVersionInstaller.Steps
 
         }
 
+        private void btnDiscord_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://discord.gg/YcQ8Aq2FA6");
+        }
 
+        private void btnSmartSaveFolder_Click(object sender, EventArgs e)
+        {
+            var smartSaveFolder = Path.Combine(extras, "SmartSaveFolder.exe");
+            Process.Start(smartSaveFolder);
+        }
+
+        private void btnRetroShaderFix_Click(object sender, EventArgs e)
+        {
+            Directory.SetCurrentDirectory(Directory.GetParent(extras).FullName);
+            var retroShaderFix = Path.Combine(extras, "RetroShaderFix.exe");
+            Process.Start(retroShaderFix);
+        }
     }
 }

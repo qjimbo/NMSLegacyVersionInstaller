@@ -165,12 +165,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
+    <EmbeddedResource Include="InstallerExtras\Microsoft.WindowsAPICodePack.dll" />
+    <EmbeddedResource Include="InstallerExtras\Microsoft.WindowsAPICodePack.Shell.dll" />
+    <EmbeddedResource Include="InstallerExtras\NMSVersionDll.dll" />
+    <EmbeddedResource Include="InstallerExtras\RetroShaderFix.exe" />
     <Content Include="Libs\ConsoleControl.dll" />
     <Content Include="Libs\ConsoleControlAPI.dll" />
     <Content Include="Libs\Costura.dll" />
     <Content Include="Libs\Costura.Fody.dll" />
     <Content Include="Libs\Fody.dll" />
     <Content Include="Libs\FodyCommon.dll" />
+    <None Include="Resources\icon.png" />
+    <None Include="Resources\smartsavefolder.png" />
+    <None Include="Resources\discordicon.png" />
     <EmbeddedResource Include="InstallerFilesPlugins\ExamplePlugin.dll" />
     <EmbeddedResource Include="InstallerFilesPlugins\SharpDisasm.dll" />
     <EmbeddedResource Include="InstallerFilesPlugins\Steamless.API.dll" />

@@ -111,13 +111,26 @@ namespace NMSLegacyVersionInstaller.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The No Man&apos;s Sky Legacy Version Installer is a fan-made application created to facilitate the installation of older versions of the game No Man&apos;s Sky. This application is intended for use by individuals who wish to experience older versions of the game and is not affiliated with the game&apos;s developers or publishers.
+        ///   Looks up a localized string similar to - No Man&apos;s Sky Legacy Version Installer -
+        ///https://github.com/qjimbo/NMSLegacyVersionInstaller
         ///
-        ///This application does not contain any game data, and only serves as a tool to download the game from Steam. The user must have a valid, purchased copy of the game and provide their own Steam a [rest of string was truncated]&quot;;.
+        ///The No Man&apos;s Sky Legacy Version Installer is a fan-made application created to facilitate the installation of older versions of the game No Man&apos;s Sky. This application is intended for use by individuals who wish to experience older versions of the game and is not affiliated with the game&apos;s developers or publishers.
+        ///
+        ///This application does not contain any game data, and only serves as a tool to download the gam [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Disclaimer {
             get {
                 return ResourceManager.GetString("Disclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap discord {
+            get {
+                object obj = ResourceManager.GetObject("discord", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -157,6 +170,26 @@ namespace NMSLegacyVersionInstaller.Properties {
         public static System.Drawing.Bitmap release_orb {
             get {
                 object obj = ResourceManager.GetObject("release_orb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap retroshaderfixgui {
+            get {
+                object obj = ResourceManager.GetObject("retroshaderfixgui", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap smartsavefolder {
+            get {
+                object obj = ResourceManager.GetObject("smartsavefolder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

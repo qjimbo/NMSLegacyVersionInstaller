@@ -45,6 +45,7 @@ namespace NMSLegacyVersionInstaller.Steps
             console.WriteOutput("Extracting Extras..." + Environment.NewLine, Color.Lime);
             Program.ExtractInstallerFiles("NMSLegacyVersionInstaller.InstallerExtras.", extras);
             Program.CreateShortcutWithIcon(Path.Combine(depotDownloader.InstallationPath, "SmartSaveFolder.lnk"), Path.Combine(extras, "SmartSaveFolder.exe"));
+            Program.CreateShortcutWithIcon(Path.Combine(depotDownloader.InstallationPath, "RetroShaderFix.lnk"), Path.Combine(extras, "RetroShaderFix.exe"));
 
             // Start Task
             currentCommandIndex = 0;
@@ -56,16 +57,24 @@ namespace NMSLegacyVersionInstaller.Steps
         {
             BeginInvoke((MethodInvoker)(() =>
             { // Threadsafe
-                var thisCommand = depotDownloader.DepotDownloaderCommands[currentCommandIndex];
-                var binaries = Path.Combine(thisCommand.folder, "Binaries");
-                var NMSexePath = Path.Combine(binaries, "NMS.exe");
+            var thisCommand = depotDownloader.DepotDownloaderCommands[currentCommandIndex];
+            var binaries = Path.Combine(thisCommand.folder, "Binaries");
+            var NMSexePath = Path.Combine(binaries, "NMS.exe");
 
-                console.WriteOutput("Processing " + Path.GetFileName(thisCommand.folder) + Environment.NewLine, Color.Lime);
+            console.WriteOutput("Processing " + Path.GetFileName(thisCommand.folder) + Environment.NewLine, Color.Lime);
 
-                console.WriteOutput("Replace steam_api64.dll.." + Environment.NewLine, Color.Orange);
-                File.Copy(Path.Combine(Program.TempFileLocation, "steam_api64.dll"), Path.Combine(binaries, "steam_api64.dll"), true);
+            // Steam Emulator
+            console.WriteOutput("[Goldberg Steam Emulator] Replace steam_api64.dll..." + Environment.NewLine, Color.Orange);
+            File.Move(Path.Combine(binaries, "steam_api64.dll"), Path.Combine(binaries, "steam_api64.dll.bak"));
+            File.Copy(Path.Combine(Program.TempFileLocation, "steam_api64.dll"), Path.Combine(binaries, "steam_api64.dll"), true);
 
-                console.WriteOutput("Running Steamless..." + Environment.NewLine, Color.Orange);
+            // Steam Emulator Offline Mode
+            console.WriteOutput("[Goldberg Steam Emulator] Enable Offline Mode..." + Environment.NewLine, Color.Orange);
+            Directory.CreateDirectory(Path.Combine(binaries, "steam_settings"));
+            File.CreateText(Path.Combine(binaries, "steam_settings", "offline.txt"));
+
+            // Steamless
+            console.WriteOutput("[Steamless] Running Steamless..." + Environment.NewLine, Color.Orange);
 
                 new Thread(() =>
                 {
@@ -91,11 +100,12 @@ namespace NMSLegacyVersionInstaller.Steps
 
                 if (File.Exists(unpackedNMSexePath))
                 {
-                    console.WriteOutput("Moving Unpacked File..." + Environment.NewLine, Color.Orange);
+                    console.WriteOutput("[Steamless] Moving Unpacked File..." + Environment.NewLine, Color.Orange);
                     File.Move(NMSexePath, NMSexePath + ".bak");
                     File.Move(unpackedNMSexePath, NMSexePath);
                 }
 
+                console.WriteOutput("Creating Shortcut...", Color.Orange);
                 var iconPath = Path.Combine(extras, thisCommand.icon);
                 Program.CreateShortcutWithIcon(Path.Combine(depotDownloader.InstallationPath, thisCommand.name + ".lnk"), NMSexePath, iconPath);
 
