@@ -175,9 +175,9 @@
     <Content Include="Libs\Costura.Fody.dll" />
     <Content Include="Libs\Fody.dll" />
     <Content Include="Libs\FodyCommon.dll" />
-    <None Include="Resources\icon.png" />
+    <None Include="Resources\retroshaderfix.png" />
     <None Include="Resources\smartsavefolder.png" />
-    <None Include="Resources\discordicon.png" />
+    <None Include="Resources\discord.png" />
     <EmbeddedResource Include="InstallerFilesPlugins\ExamplePlugin.dll" />
     <EmbeddedResource Include="InstallerFilesPlugins\SharpDisasm.dll" />
     <EmbeddedResource Include="InstallerFilesPlugins\Steamless.API.dll" />
