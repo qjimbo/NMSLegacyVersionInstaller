@@ -8,13 +8,7 @@ namespace NMSLegacyVersionInstaller
     public static class Steam
     {
         public static string Username { get; set; }
-        public static string Password { get; set; }
-
-        public static bool DoLogin()
-        {
-            
-            return true;
-        }
+        public static string ID { get; set; }        
 
     }
 }

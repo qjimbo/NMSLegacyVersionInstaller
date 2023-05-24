@@ -67,6 +67,12 @@ namespace NMSLegacyVersionInstaller.Steps
             console.WriteOutput("[Goldberg Steam Emulator] Replace steam_api64.dll..." + Environment.NewLine, Color.Orange);
             File.Move(Path.Combine(binaries, "steam_api64.dll"), Path.Combine(binaries, "steam_api64.dll.bak"));
             File.Copy(Path.Combine(Program.TempFileLocation, "steam_api64.dll"), Path.Combine(binaries, "steam_api64.dll"), true);
+            
+            // Steam Emulator User Configuration
+            console.WriteOutput("[Goldberg Steam Emulator] Configure User..." + Environment.NewLine, Color.Orange);
+            Directory.CreateDirectory(Path.Combine(binaries, "steam_settings"));
+            File.WriteAllText(Path.Combine(binaries, "steam_settings", "account_name.txt"), Steam.Username);
+            //File.WriteAllText(Path.Combine(binaries, "steam_settings", "user_steam_id.txt"), Steam.ID); // TODO
 
             // Steam Emulator Offline Mode
             console.WriteOutput("[Goldberg Steam Emulator] Enable Offline Mode..." + Environment.NewLine, Color.Orange);

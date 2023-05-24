@@ -50,6 +50,7 @@ namespace NMSLegacyVersionInstaller.Steps
             var credentials = NMSLegacyVersionInstaller.Container.FindStep<SteamCredentials>();
             string username = credentials.txtUsername.Text;
             string password = credentials.txtPassword.Text;
+            Steam.Username = username;
             var selectversion = NMSLegacyVersionInstaller.Container.FindStep<SelectVersion>();
             InstallationPath = selectversion.txtPath.Text;
             InstallationLogPath = Path.Combine(InstallationPath, "Log");
