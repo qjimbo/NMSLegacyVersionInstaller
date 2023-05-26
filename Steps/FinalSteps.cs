@@ -45,7 +45,14 @@ namespace NMSLegacyVersionInstaller.Steps
             console.WriteOutput("Extracting Extras..." + Environment.NewLine, Color.Lime);
             Program.ExtractInstallerFiles("NMSLegacyVersionInstaller.InstallerExtras.", extras);
             Program.CreateShortcutWithIcon(Path.Combine(depotDownloader.InstallationPath, "SmartSaveFolder.lnk"), Path.Combine(extras, "SmartSaveFolder.exe"));
-            Program.CreateShortcutWithIcon(Path.Combine(depotDownloader.InstallationPath, "RetroShaderFix.lnk"), Path.Combine(extras, "RetroShaderFix.exe"));
+            Program.CreateShortcutWithIcon(Path.Combine(depotDownloader.InstallationPath, "RetroShaderFix.lnk"), Path.Combine(extras, "RetroShaderFix.exe"), "", depotDownloader.InstallationPath);
+
+            console.WriteOutput("Fetching Steam ID..." + Environment.NewLine, Color.Lime);
+            Steam.TryGetSteamID();
+            if(!string.IsNullOrEmpty(Steam.ID))
+                console.WriteOutput("Steam ID is " + Steam.ID + Environment.NewLine, Color.Lime);
+            else
+                console.WriteOutput("Unable to Find Steam ID" + Environment.NewLine, Color.Orange);
 
             // Start Task
             currentCommandIndex = 0;
@@ -73,7 +80,8 @@ namespace NMSLegacyVersionInstaller.Steps
             console.WriteOutput("[Goldberg Steam Emulator] Configure User..." + Environment.NewLine, Color.Orange);
             Directory.CreateDirectory(Path.Combine(binaries, "steam_settings"));
             File.WriteAllText(Path.Combine(binaries, "steam_settings", "account_name.txt"), Steam.Username);
-            //File.WriteAllText(Path.Combine(binaries, "steam_settings", "user_steam_id.txt"), Steam.ID); // TODO
+            if(!string.IsNullOrEmpty(Steam.ID))
+                File.WriteAllText(Path.Combine(binaries, "steam_settings", "user_steam_id.txt"), Steam.ID);
 
             // Steam Emulator Offline Mode
             console.WriteOutput("[Goldberg Steam Emulator] Enable Offline Mode..." + Environment.NewLine, Color.Orange);            
