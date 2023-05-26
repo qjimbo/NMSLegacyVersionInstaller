@@ -44,7 +44,7 @@ namespace NMSLegacyVersionInstaller
             }
         }
 
-        public static void CreateShortcutWithIcon(string shortcutPath, string targetPath, string iconPath = "")
+        public static void CreateShortcutWithIcon(string shortcutPath, string targetPath, string iconPath = "", string startIn = "")
         {
             // Create a new WshShell object.
             WshShell shell = new WshShell();
@@ -54,7 +54,7 @@ namespace NMSLegacyVersionInstaller
 
             // Set the target path and working directory for the shortcut.
             shortcut.TargetPath = targetPath;
-            shortcut.WorkingDirectory = System.IO.Path.GetDirectoryName(targetPath);
+            shortcut.WorkingDirectory = string.IsNullOrEmpty(startIn) ? System.IO.Path.GetDirectoryName(targetPath) : startIn;
 
             // Set the custom icon for the shortcut.
             if(!string.IsNullOrEmpty(iconPath))
