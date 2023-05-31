@@ -45,4 +45,4 @@ If you encounter any issues while using the No Man's Sky Legacy Version Installe
 
 ## License
 
-The No Man's Sky Legacy Version Installer is released under the [MIT License](https://github.com/qjimbo/NMSLegacyVersionInstaller/LICENSE).
+The No Man's Sky Legacy Version Installer is released under the [MIT License](https://github.com/qjimbo/NMSLegacyVersionInstaller/blob/main/LICENSE).
