@@ -77,11 +77,16 @@ namespace NMSLegacyVersionInstaller.Steps
             File.Copy(Path.Combine(Program.TempFileLocation, "steam_api64.dll"), Path.Combine(binaries, "steam_api64.dll"), true);
             
             // Steam Emulator User Configuration
+
+            // Fix based on
+            // https://gitlab.com/Mr_Goldberg/goldberg_emulator/-/blob/master/Readme_release.txt
+            // "You can also make the emu ignore certain global settings by using a force_account_name.txt, force_language.txt, force_listen_port.txt or force_steamid.txt that you put in the <path where my emu lib is>\steam_settings\ folder."
+
             console.WriteOutput("[Goldberg Steam Emulator] Configure User..." + Environment.NewLine, Color.Orange);
             Directory.CreateDirectory(Path.Combine(binaries, "steam_settings"));
-            File.WriteAllText(Path.Combine(binaries, "steam_settings", "account_name.txt"), Steam.Username);
+            File.WriteAllText(Path.Combine(binaries, "steam_settings", "force_account_name.txt"), Steam.Username);
             if(!string.IsNullOrEmpty(Steam.ID))
-                File.WriteAllText(Path.Combine(binaries, "steam_settings", "user_steam_id.txt"), Steam.ID);
+                File.WriteAllText(Path.Combine(binaries, "steam_settings", "force_steamid.txt"), Steam.ID);
 
             // Steam Emulator Offline Mode
             console.WriteOutput("[Goldberg Steam Emulator] Enable Offline Mode..." + Environment.NewLine, Color.Orange);            
