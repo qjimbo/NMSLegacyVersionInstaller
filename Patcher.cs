@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 
 namespace NMSRetroInstaller;
@@ -15,7 +15,8 @@ namespace NMSRetroInstaller;
 public static class Patcher
 {
     public static void Apply(
-        string root, GameVersion version, string accountName, GameLanguage language, Action<string> log)
+        string root, GameVersion version, string accountName, ulong steamId, GameLanguage language,
+        Action<string> log)
     {
         var binaries = GameCatalog.BinariesFolder(root, version);
         var dll = Path.Combine(binaries, "steam_api64.dll");
@@ -30,17 +31,25 @@ public static class Patcher
         Payload.Write("InstallerFiles.steam_api64.dll", dll);
         log("Installed steam_api64.retro");
 
-        File.WriteAllText(Path.Combine(binaries, "steam_api64.txt"), Settings(version, accountName, language));
-        log($"Wrote steam_api64.txt (steamid {version.SaveId}, saves in st_{version.SaveId}, language {language.Code})");
+        File.WriteAllText(
+            Path.Combine(binaries, "steam_api64.txt"), Settings(version, accountName, steamId, language));
+        log($"Wrote steam_api64.txt (steamid {steamId}, saves in st_{version.SaveId}, language {language.Code})");
     }
 
     /// <summary>
     /// The DLL writes this file itself on first run; writing it here instead pins the save folder
     /// to the build, names the account the way Steam spells it, and turns on the two extras.
+    /// <para>
+    /// The game is told its real Steam ID, so the discoveries server sees the account that made
+    /// them, while <c>savesteamid</c> keeps the save folder and the save encryption on the build
+    /// number. Point two builds at the same <c>savesteamid</c> to share one set of saves.
+    /// </para>
     /// </summary>
-    static string Settings(GameVersion version, string accountName, GameLanguage language) =>
+    static string Settings(GameVersion version, string accountName, ulong steamId, GameLanguage language) =>
         $"""
-        steamid={version.SaveId}
+        steamid={(steamId == 0 ? version.SaveId : steamId)}
+        # the save folder and the save encryption use this ID instead, so saves stay put when steamid changes
+        savesteamid={version.SaveId}
         name={accountName}
         language={language.Code}
         # true skips the mods-enabled warning screen at boot (1.13 and later)

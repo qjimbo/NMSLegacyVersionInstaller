@@ -1,4 +1,4 @@
-// Derived from DepotDownloader (https://github.com/SteamRE/DepotDownloader), GPL-2.0-or-later.
+﻿// Derived from DepotDownloader (https://github.com/SteamRE/DepotDownloader), GPL-2.0-or-later.
 // Trimmed to what this installer needs: sign in, and hand the depot downloader the keys and
 // tokens it asks for. See LICENSE (GPL-3.0) for the terms this installer is released under.
 
@@ -44,6 +44,9 @@ public sealed class SteamSession : IDisposable
 
     /// <summary>The account name exactly as Steam spells it, which is not necessarily how it was typed.</summary>
     public string AccountName { get; private set; } = "";
+
+    /// <summary>The account's real 17-digit Steam ID, written into steam_api64.txt as <c>steamid</c>.</summary>
+    public ulong SteamId { get; private set; }
 
     public Client CdnClient { get; private set; } = null!;
 
@@ -91,7 +94,10 @@ public sealed class SteamSession : IDisposable
         callbacks.Subscribe<SteamUser.LoggedOnCallback>(on =>
         {
             if (on.Result == EResult.OK)
+            {
+                SteamId = on.ClientSteamID?.ConvertToUInt64() ?? 0;
                 loggedOn.TrySetResult();
+            }
             else
                 loggedOn.TrySetException(new SteamException("Steam refused the sign-in: " + on.Result));
         });
@@ -142,7 +148,7 @@ public sealed class SteamSession : IDisposable
         await Settle(licensed.Task, "licence list", ct);
 
         CdnClient = new Client(client);
-        log("Signed in as " + AccountName + ".");
+        log($"Signed in as {AccountName} ({SteamId}).");
     }
 
     /// <summary>Waits for one step of the sign-in, turning a stall into something readable.</summary>

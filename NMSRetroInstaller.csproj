@@ -10,7 +10,7 @@
     <AssemblyName>NMSRetroInstaller</AssemblyName>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>icon.ico</ApplicationIcon>
-    <Version>2.0.0</Version>
+    <Version>2.1.0</Version>
     <Product>No Man's Sky Retro Installer</Product>
     <Company>nomansskyretro.com</Company>
     <Copyright>Copyright (C) 2023-2026 Qjimbo / nomansskyretro.com</Copyright>

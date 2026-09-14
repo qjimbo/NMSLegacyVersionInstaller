@@ -26,8 +26,9 @@ The releases page: https://github.com/NoMansSkyRetro/Installer/releases
   Steamless combination. `NMS.exe` is no longer rewritten on disk.
 - **The mods warning is off** and **discoveries are routed** to the community server.
 - **The shader fix is always applied**, rather than being a question during setup.
-- **SmartSaveFolder is gone.** Each build gets its own save folder from its own `steamid`, so
-  there is nothing left to switch between.
+- **SmartSaveFolder is gone.** Each build gets its own save folder from its own `savesteamid`,
+  so there is nothing left to switch between. Give two builds the same `savesteamid` and they
+  share one set of saves.
 - **A launcher**, on the desktop, in the Start menu and in the install folder.
 - The project is now **GPL-3.0**, because the depot download derives from DepotDownloader.
 
@@ -45,7 +46,8 @@ For each version you pick:
 
    | Key | Value |
    |-----|-------|
-   | `steamid` | `109`, `113`, `124` or `138`, so each build saves to its own `st_<id>` folder |
+   | `steamid` | your real Steam ID, so the discoveries server sees the account that made them |
+   | `savesteamid` | `109`, `113`, `124` or `138`, so each build saves to its own `st_<id>` folder |
    | `name` | your Steam account name, spelled the way Steam spells it |
    | `disablemodwarning` | `true`, so the mods-enabled screen does not appear at boot |
    | `discoveriesserver` | `discoveries.nomansskyretro.com` |

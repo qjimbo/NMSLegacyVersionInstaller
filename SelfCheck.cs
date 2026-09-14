@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -56,14 +56,15 @@ public static class SelfCheck
                 File.WriteAllText(Path.Combine(binaries, "steam_api64.dll"), "stock");
                 File.WriteAllText(GameCatalog.ExePath(temp, version), "stub");
 
-                Patcher.Apply(temp, version, "SteamPersonName", GameCatalog.DefaultLanguage, _ => { });
+                Patcher.Apply(temp, version, "SteamPersonName", 76561190000000000, GameCatalog.DefaultLanguage, _ => { });
 
                 var dll = Path.Combine(binaries, "steam_api64.dll");
                 Check($"{version.Title}: original dll backed up", File.Exists(dll + ".bak"));
                 Check($"{version.Title}: steam_api64.dll replaced", new FileInfo(dll).Length > 1024);
 
                 var settings = File.ReadAllText(Path.Combine(binaries, "steam_api64.txt"));
-                Check($"{version.Title}: steamid={version.SaveId}", settings.Contains($"steamid={version.SaveId}\r\n"));
+                Check($"{version.Title}: steamid is the real Steam ID", settings.Contains("steamid=76561190000000000\r\n"));
+                Check($"{version.Title}: savesteamid={version.SaveId}", settings.Contains($"savesteamid={version.SaveId}\r\n"));
                 Check($"{version.Title}: name is the Steam spelling", settings.Contains("name=SteamPersonName\r\n"));
                 Check($"{version.Title}: mod warning disabled", settings.Contains("disablemodwarning=true\r\n"));
                 Check($"{version.Title}: discoveries rerouted",
@@ -92,7 +93,7 @@ public static class SelfCheck
             var probe = GameCatalog.All[0];
             foreach (var language in GameCatalog.Languages)
             {
-                Patcher.Apply(temp, probe, "SteamPersonName", language, _ => { });
+                Patcher.Apply(temp, probe, "SteamPersonName", 76561190000000000, language, _ => { });
                 var written = File.ReadAllText(
                     Path.Combine(GameCatalog.BinariesFolder(temp, probe), "steam_api64.txt"));
                 Check($"language {language.Code} ({language.Name}) is written",
